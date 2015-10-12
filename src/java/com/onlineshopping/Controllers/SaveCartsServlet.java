@@ -32,12 +32,13 @@ public class SaveCartsServlet extends HttpServlet {
 
     private ArrayList<Manufacture> manufactureList;
     private ArrayList<OperatingSystem> osList;
+
     @Override
-    public void init()
-    {
+    public void init() {
         manufactureList = (ArrayList<Manufacture>) ManufactureService.getManufactureList();
         osList = (ArrayList<OperatingSystem>) OperatingSystemService.getOperatingSystemList();
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -57,16 +58,15 @@ public class SaveCartsServlet extends HttpServlet {
         cartService.saveCarts(carts);
         MailClient mailClient = new MailClient();
         String subject = "Xác Nhận Đơn Hàng - Dai Yen Shop";
-        String content = "<h1>Xin Chào " + user.getFullname() +"</h1></br>"
+        String content = "<h1>Xin Chào " + user.getFullname() + "</h1></br>"
                 + "Bạn vừa thực hiện đặt hàng tại Dai Yen Shop, thông tin đơn hàng như sau:</br>"
                 + "<ul>";
-        for (Cart cart: carts)
-        {
-            content += "<li>"+cart.getProductName() + " x" +cart.getQuantity() + " cái</li>";
+        for (Cart cart : carts) {
+            content += "<li>" + cart.getProductName() + " x" + cart.getQuantity() + " cái</li>";
         }
         content += "</ul></br>"
                 + "Tổng số tiền phải thanh toán: "
-                + (long)session.getAttribute("totalAmount") + " VNĐ";
+                + (long) session.getAttribute("totalAmount") + " VNĐ";
         try {
             mailClient.sendMail(user.getEmail(), "Xác Nhận Đơn Hàng", content);
         } catch (MessagingException ex) {
@@ -75,6 +75,9 @@ public class SaveCartsServlet extends HttpServlet {
         request.setAttribute("manufactureList", manufactureList);
         request.setAttribute("osList", osList);
         request.getRequestDispatcher("/WEB-INF/save-carts.jsp").forward(request, response);
+        request.setAttribute("includePath", "/WEB-INF/save-carts.jsp");
+        request.setAttribute("title", "Lưu Giỏ Hàng");
+        request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

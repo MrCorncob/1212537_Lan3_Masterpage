@@ -4,6 +4,7 @@
     Author     : Corncob
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="single_top">
     <div class="single_grid">
@@ -32,7 +33,8 @@
                 <div>
                     <label>Màu sắc:</label>
                     <ul class="form-inline size">
-                        <c:forEach var="_color" items="${requestScope.product.getColor().split(\", \")}">
+                        <c:set var="colors" value="${requestScope.product.getColor().split(\", \")}"></c:set>
+                        <c:forEach var="_color" items="${colors}">
                             <li class="radio"><label><input required name="color"  type="radio" value="${_color}">${_color}</label></li>
                                 </c:forEach>
 

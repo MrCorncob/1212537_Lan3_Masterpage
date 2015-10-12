@@ -27,13 +27,13 @@ public class UnauthorizedServlet extends HttpServlet {
 
     private ArrayList<Manufacture> manufactureList;
     private ArrayList<OperatingSystem> osList;
+
     @Override
-    public void init()
-    {
+    public void init() {
         manufactureList = (ArrayList<Manufacture>) ManufactureService.getManufactureList();
         osList = (ArrayList<OperatingSystem>) OperatingSystemService.getOperatingSystemList();
     }
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,17 +48,18 @@ public class UnauthorizedServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
-        if (user != null)
-        {
+        if (user != null) {
             response.sendRedirect("index.html");
-        }
-        else
-        {
+        } else {
             request.setAttribute("manufactureList", manufactureList);
             request.setAttribute("osList", osList);
+
+            request.setAttribute("includePath", "/WEB-INF/unauthorized.jsp");
+            request.setAttribute("title", "Truy Cập Bất Hợp Lệ");
+            request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
             request.getRequestDispatcher("/WEB-INF/unauthorized.jsp").forward(request, response);
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

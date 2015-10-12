@@ -28,16 +28,16 @@ import javax.servlet.http.HttpSession;
  * @author Corncob
  */
 public class LoginServlet extends HttpServlet {
-    
+
     private ArrayList<Manufacture> manufactureList;
     private ArrayList<OperatingSystem> osList;
+
     @Override
-    public void init()
-    {
+    public void init() {
         manufactureList = (ArrayList<Manufacture>) ManufactureService.getManufactureList();
         osList = (ArrayList<OperatingSystem>) OperatingSystemService.getOperatingSystemList();
     }
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,8 +68,10 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setAttribute("manufactureList", manufactureList);
         request.setAttribute("osList", osList);
-        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        
+        request.setAttribute("includePath", "/WEB-INF/login.jsp");
+        request.setAttribute("title", "Đăng Nhập");
+        request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
+
     }
 
     /**
@@ -87,13 +89,14 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
         User user;
-        user = (User)session.getAttribute("user");
-        if (user != null)
-        {
-            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        user = (User) session.getAttribute("user");
+        if (user != null) {
+            request.setAttribute("includePath", "/WEB-INF/login.jsp");
+            request.setAttribute("title", "Đăng Nhập");
+            request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
             return;
         }
-        
+
         LoginService loginService = new LoginService();
         String username = request.getParameter("username");
         String password = MD5Utility.getMD5Hash(request.getParameter("password"));
@@ -108,7 +111,10 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("index.html");
         } else {
             request.setAttribute("message", "Sai tên đăng nhập hoặc mật khẩu!");
-            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+
+            request.setAttribute("includePath", "/WEB-INF/login.jsp");
+            request.setAttribute("title", "Đăng Nhập");
+            request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
         }
     }
 

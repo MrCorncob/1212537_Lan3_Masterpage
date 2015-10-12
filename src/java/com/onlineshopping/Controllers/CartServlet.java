@@ -30,13 +30,13 @@ public class CartServlet extends HttpServlet {
 
     private ArrayList<Manufacture> manufactureList;
     private ArrayList<OperatingSystem> osList;
+
     @Override
-    public void init()
-    {
+    public void init() {
         manufactureList = (ArrayList<Manufacture>) ManufactureService.getManufactureList();
         osList = (ArrayList<OperatingSystem>) OperatingSystemService.getOperatingSystemList();
     }
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,7 +49,7 @@ public class CartServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,26 +67,24 @@ public class CartServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
 
-        if (user == null)
-        {
+        if (user == null) {
             response.sendRedirect("unauthorized.html");
-        }
-        else
-        {
+        } else {
             ArrayList<Cart> carts = (ArrayList<Cart>) session.getAttribute("carts");
             long totalAmount = 0;
-            if (carts != null)
-            {
-                
-                for(Cart cart: carts)
-                {
+            if (carts != null) {
+
+                for (Cart cart : carts) {
                     totalAmount += cart.getPrice() * cart.getQuantity();
                 }
             }
             session.setAttribute("totalAmount", totalAmount);
             request.setAttribute("manufactureList", manufactureList);
             request.setAttribute("osList", osList);
-            request.getRequestDispatcher("/WEB-INF/carts.jsp").forward(request, response);
+            session.setAttribute("carts", carts);
+            request.setAttribute("includePath", "/WEB-INF/carts.jsp");
+            request.setAttribute("title", "Giỏ Hàng");
+            request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
         }
     }
 
@@ -110,20 +108,16 @@ public class CartServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         user = (User) session.getAttribute("user");
 
-        if (user == null)
-        {
+        if (user == null) {
             response.sendRedirect("unauthorized.html");
-        } 
-        else
-        {
-            try
-            {
+        } else {
+            try {
                 carts = (ArrayList<Cart>) session.getAttribute("carts");
                 cart.setProductId(Long.parseLong(request.getParameter("productid")));
                 cart.setColor(request.getParameter("color"));
                 cart.setQuantity(Integer.parseInt(request.getParameter("quantity")));
                 cart.setUserId(user.getId());
-                
+
                 ProductService productService = new ProductService();
                 product = productService.getProductById((int) cart.getProductId());
 
@@ -133,8 +127,7 @@ public class CartServlet extends HttpServlet {
                 if (carts != null) {
                     for (int i = 0; i < carts.size(); i++) {
                         if (Objects.equals(carts.get(i).getProductId(), cart.getProductId())
-                                && carts.get(i).getColor().equals(cart.getColor()))
-                        {
+                                && carts.get(i).getColor().equals(cart.getColor())) {
                             int newQuantity = carts.get(i).getQuantity() + cart.getQuantity();
                             cart.setQuantity(newQuantity);
                             carts.set(i, cart);
@@ -142,17 +135,13 @@ public class CartServlet extends HttpServlet {
                             break;
                         }
                     }
-                }
-                else
-                {
+                } else {
                     carts = new ArrayList<>();
                 }
                 if (!productIsInCartAlready) {
                     carts.add(cart);
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
             session.setAttribute("carts", carts);
@@ -161,7 +150,7 @@ public class CartServlet extends HttpServlet {
             //request.getRequestDispatcher("/WEB-INF/carts.jsp").forward(request, response);
             response.sendRedirect("carts.html");
         }
-        
+
     }
 
     /**

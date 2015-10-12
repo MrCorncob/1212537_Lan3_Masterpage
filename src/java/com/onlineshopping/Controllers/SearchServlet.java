@@ -61,7 +61,9 @@ public class SearchServlet extends HttpServlet {
         List<Product> productList = new ArrayList<Product>();
         productList = searchService.searchProduct(manufactureId, osId, screenSize, price, color);
         request.setAttribute("productList", productList);
-        request.getRequestDispatcher("/WEB-INF/search.jsp").forward(request, response);
+        request.setAttribute("includePath", "/WEB-INF/search.jsp");
+        request.setAttribute("title", "Tìm Kiếm Sản Phẩm");
+        request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

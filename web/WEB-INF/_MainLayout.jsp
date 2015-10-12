@@ -47,10 +47,9 @@
                         <%@ include file="leftbar.jsp" %>
                     </div>
                     <div class="col-md-9">
-                        <%@ include file="${requestScope.includePath}" %>
+                        <jsp:include page="${requestScope.includePath}" />
                     </div>
-
-                </div>  	    
+              </div>  	    
             </div>
         </div>
 

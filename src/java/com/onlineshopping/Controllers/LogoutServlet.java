@@ -26,13 +26,13 @@ public class LogoutServlet extends HttpServlet {
 
     private ArrayList<Manufacture> manufactureList;
     private ArrayList<OperatingSystem> osList;
+
     @Override
-    public void init()
-    {
+    public void init() {
         manufactureList = (ArrayList<Manufacture>) ManufactureService.getManufactureList();
         osList = (ArrayList<OperatingSystem>) OperatingSystemService.getOperatingSystemList();
     }
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,18 +48,17 @@ public class LogoutServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
-        if (user != null)
-        {
+        if (user != null) {
             session.invalidate();
             request.setAttribute("message", "Đăng Xuất Thành Công");
-        }
-        else
-        {
+        } else {
             request.setAttribute("message", "Bạn Chưa Đăng Nhập");
         }
         request.setAttribute("manufactureList", manufactureList);
         request.setAttribute("osList", osList);
-        request.getRequestDispatcher("/WEB-INF/logout.jsp").forward(request, response);
+        request.setAttribute("includePath", "/WEB-INF/logout.jsp");
+        request.setAttribute("title", "Đăng Xuất");
+        request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

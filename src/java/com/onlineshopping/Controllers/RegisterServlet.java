@@ -70,7 +70,9 @@ public class RegisterServlet extends HttpServlet {
         } else {
             request.setAttribute("manufactureList", manufactureList);
             request.setAttribute("osList", osList);
-            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+            request.setAttribute("includePath", "/WEB-INF/register.jsp");
+            request.setAttribute("title", "Đang Kí Tài Khoản");
+            request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
         }
 
     }
@@ -121,7 +123,10 @@ public class RegisterServlet extends HttpServlet {
             response.sendRedirect("login.html");
         } else {
             request.setAttribute("message", "Lỗi! Tên Đăng Nhập Hoặc Email Đã Được Sử Dụng");
-            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+
+            request.setAttribute("includePath", "/WEB-INF/register.jsp");
+            request.setAttribute("title", "Đang Kí Tài Khoản");
+            request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
         }
     }
 

@@ -45,7 +45,9 @@ public class IndexServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setAttribute("manufactureList", manufactureList);
         request.setAttribute("osList", osList);
-        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+        request.setAttribute("includePath", "/WEB-INF/index.jsp");
+        request.setAttribute("title", "Trang Chủ");
+        request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
     }
     
     @Override

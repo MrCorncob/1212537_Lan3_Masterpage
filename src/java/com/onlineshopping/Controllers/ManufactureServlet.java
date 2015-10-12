@@ -53,7 +53,9 @@ public class ManufactureServlet extends HttpServlet {
         List<Product> productList = new ArrayList<Product>();
         productList = productService.getProductByManufactureId(manufactureId);
         request.setAttribute("productList", productList);
-        request.getRequestDispatcher("/WEB-INF/manufacture.jsp").forward(request, response);
+        request.setAttribute("includePath", "/WEB-INF/manufacture.jsp");
+        request.setAttribute("title", "Danh Mục Sản Phẩm");
+        request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

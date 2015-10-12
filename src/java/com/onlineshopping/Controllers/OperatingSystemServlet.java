@@ -25,15 +25,16 @@ import javax.servlet.http.HttpSession;
  * @author Corncob
  */
 public class OperatingSystemServlet extends HttpServlet {
-    
+
     private ArrayList<Manufacture> manufactureList;
     private ArrayList<OperatingSystem> osList;
+
     @Override
-    public void init()
-    {
+    public void init() {
         manufactureList = (ArrayList<Manufacture>) ManufactureService.getManufactureList();
         osList = (ArrayList<OperatingSystem>) OperatingSystemService.getOperatingSystemList();
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -53,7 +54,9 @@ public class OperatingSystemServlet extends HttpServlet {
         List<Product> productList = new ArrayList<Product>();
         productList = productService.getProductByOsId(osId);
         request.setAttribute("productList", productList);
-        request.getRequestDispatcher("/WEB-INF/operatingsystem.jsp").forward(request, response);
+        request.setAttribute("includePath", "/WEB-INF/operatingsystem.jsp");
+        request.setAttribute("title", "Hệ Điều Hành");
+        request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

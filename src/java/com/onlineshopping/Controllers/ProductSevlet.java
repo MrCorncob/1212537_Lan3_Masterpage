@@ -26,13 +26,13 @@ public class ProductSevlet extends HttpServlet {
 
     private ArrayList<Manufacture> manufactureList;
     private ArrayList<OperatingSystem> osList;
+
     @Override
-    public void init()
-    {
+    public void init() {
         manufactureList = (ArrayList<Manufacture>) ManufactureService.getManufactureList();
         osList = (ArrayList<OperatingSystem>) OperatingSystemService.getOperatingSystemList();
     }
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -53,7 +53,9 @@ public class ProductSevlet extends HttpServlet {
         Product product = new Product();
         product = productService.getProductById(productId);
         request.setAttribute("product", product);
-        request.getRequestDispatcher("/WEB-INF/product.jsp").forward(request, response);
+        request.setAttribute("includePath", "/WEB-INF/product.jsp");
+        request.setAttribute("title", "Chi Tiết Sản Phẩm");
+        request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
