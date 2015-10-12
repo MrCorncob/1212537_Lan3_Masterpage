@@ -27,6 +27,18 @@
                 <li><p>Phone : 0988145052</p></li>
                 <li><p>Email : <a href="mailto:1212537@student.hcmus.edu.vn"> 1212537@student.hcmus.edu.vn</a></p></li>
             </ul>
+            <ul class="list1">
+                <li>
+                    <p>
+                        Copyright <a href="http://daiyen.info">DAIYEN.INFO</a><br>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        FashionPress theme designed by <a href="https://w3layouts.com/fashion-press-flat-ecommerce-bootstrap-responsive-web-template/">StartBootstrap</a>
+                    </p>
+                </li>
+            </ul>
             <div class="clearfix"> </div>
         </div>
     </div>

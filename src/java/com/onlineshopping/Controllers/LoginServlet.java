@@ -111,7 +111,6 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("index.html");
         } else {
             request.setAttribute("message", "Sai tên đăng nhập hoặc mật khẩu!");
-
             request.setAttribute("includePath", "/WEB-INF/login.jsp");
             request.setAttribute("title", "Đăng Nhập");
             request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);

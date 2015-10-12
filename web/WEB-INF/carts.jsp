@@ -5,9 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML>
 <h1 class="text-info">GIỎ HÀNG CỦA BẠN</h1>
-
 <c:if test="${sessionScope.carts.size()>0}">
     <div class="col-md-12">
         <div class="container-fluid">
@@ -34,7 +34,6 @@
                             <td><button class="btn btn-danger" onclick="javascript:deleteCartItem(${status.index});">Xóa</button></td>
                         </tr>
                     </c:forEach>
-
                 </tbody>
 
             </table>

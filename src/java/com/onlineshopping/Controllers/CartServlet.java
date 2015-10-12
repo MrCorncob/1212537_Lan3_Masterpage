@@ -81,7 +81,6 @@ public class CartServlet extends HttpServlet {
             session.setAttribute("totalAmount", totalAmount);
             request.setAttribute("manufactureList", manufactureList);
             request.setAttribute("osList", osList);
-            session.setAttribute("carts", carts);
             request.setAttribute("includePath", "/WEB-INF/carts.jsp");
             request.setAttribute("title", "Giỏ Hàng");
             request.getRequestDispatcher("/WEB-INF/_MainLayout.jsp").forward(request, response);
@@ -145,9 +144,6 @@ public class CartServlet extends HttpServlet {
 
             }
             session.setAttribute("carts", carts);
-            //request.setAttribute("manufactureList", manufactureList);
-            //request.setAttribute("osList", osList);
-            //request.getRequestDispatcher("/WEB-INF/carts.jsp").forward(request, response);
             response.sendRedirect("carts.html");
         }
 

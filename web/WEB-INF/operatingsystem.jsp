@@ -4,6 +4,7 @@
     Author     : Corncob
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML>
 <div class="clearfix"></div>
 <c:forEach var="_product" items="${productList}">

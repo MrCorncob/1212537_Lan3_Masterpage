@@ -4,6 +4,7 @@
     Author     : Corncob
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML>
 <div class="text-center text-info">
     <p>${requestScope.message}</p>
